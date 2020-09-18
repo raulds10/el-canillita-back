@@ -16,7 +16,7 @@ noticiactrl.crearNoticia = async (req,res) => {
                  autor,
                  fecha,
                  principal
-        })
+        });
         await noticiaNueva.save();
         res.status(201).json({
             mensaje: "Noticia agregada exitosamente en  BD"

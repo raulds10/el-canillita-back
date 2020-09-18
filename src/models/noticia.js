@@ -23,9 +23,9 @@ const noticiaSchema = new Schema({
                   type : String,
               },
               categoria : {
-                  type : Boolean,
+                  type : String,
                   required : true
-                  // default : true
+                 
               },
               autor : {
                   type : String,
@@ -41,7 +41,7 @@ const noticiaSchema = new Schema({
               }
           },{
               timestamps : true
-          })
+          });
 
 const Noticia = mongoose.model('noticia', noticiaSchema);
 export default Noticia;
