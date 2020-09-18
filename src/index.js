@@ -20,11 +20,16 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname, "../public")))
 
 //ruta 
-app.get('/', (req, res) => {
+app.get('/noticia', (req, res) => {
        res.send("hola pepe :) ")
 });
 
 app.get('/usuarios', (req,res) => {
     res.send("estoy en la pagina de usuarios");
+    
+})
+
+app.get('/categoria', (req,res) => {
+    res.send("estoy en la pagina de categoria");
     
 })
