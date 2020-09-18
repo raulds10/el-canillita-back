@@ -2,6 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import cors from 'cors';
 import path from 'path';
+import noticiaRoutes from './routes/noticia.routes';
 
 import "./database";
 const app = express();
@@ -33,3 +34,5 @@ app.get('/categoria', (req,res) => {
     res.send("estoy en la pagina de categoria");
     
 })
+
+app.use('/api/noticia', noticiaRoutes);
