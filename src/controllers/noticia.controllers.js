@@ -41,6 +41,95 @@ noticiactrl.listarNoticias = async (req,res) => {
     }
 }
 
+noticiactrl.listarNoticiasActualidad = async (req, res) => {
+    try {
+        const listadoNoticias = await Noticia.find({categoria: 'actualidad'});
+        res.status(200).json(listadoNoticias)
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            mensaje: "Ocurrio un error"
+        })
+    }
+}
+noticiactrl.listarNoticiasDeportes = async (req, res) => {
+    try {
+        const listadoNoticias = await Noticia.find({categoria: 'deportes'});
+        res.status(200).json(listadoNoticias)
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            mensaje: "Ocurrio un error"
+        })
+    }
+}
+noticiactrl.listarNoticiasEspectaculos = async (req, res) => {
+    try {
+        const listadoNoticias = await Noticia.find({categoria: 'espectaculos'});
+        res.status(200).json(listadoNoticias)
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            mensaje: "Ocurrio un error"
+        })
+    }
+}
+noticiactrl.listarNoticiasTecnologia = async (req, res) => {
+    try {
+        const listadoNoticias = await Noticia.find({categoria: 'tecnologia'});
+        res.status(200).json(listadoNoticias)
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            mensaje: "Ocurrio un error"
+        })
+    }
+}
+noticiactrl.listarNoticiasPolitica = async (req, res) => {
+    try {
+        const listadoNoticias = await Noticia.find({categoria: 'politica'});
+        res.status(200).json(listadoNoticias)
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            mensaje: "Ocurrio un error"
+        })
+    }
+}
+noticiactrl.listarNoticiasEconomia = async (req, res) => {
+    try {
+        const listadoNoticias = await Noticia.find({categoria: 'economia'});
+        res.status(200).json(listadoNoticias)
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            mensaje: "Ocurrio un error"
+        })
+    }
+}
+noticiactrl.listarNoticiasFotografia = async (req, res) => {
+    try {
+        const listadoNoticias = await Noticia.find({categoria: 'fotografia'});
+        res.status(200).json(listadoNoticias)
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            mensaje: "Ocurrio un error"
+        })
+    }
+}
+noticiactrl.listarNoticiasSalud = async (req, res) => {
+    try {
+        const listadoNoticias = await Noticia.find({categoria: 'salud'});
+        res.status(200).json(listadoNoticias)
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            mensaje: "Ocurrio un error"
+        })
+    }
+}
+
 noticiactrl.eliminarNoticia = async (req,res) => {
     try {
         console.log(req.params.id);

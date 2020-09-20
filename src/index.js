@@ -3,7 +3,7 @@ import morgan from "morgan";
 import cors from 'cors';
 import path from 'path';
 import noticiaRoutes from './routes/noticia.routes';
-import categoriaRoutes from './routes/categoria.routes';
+
 
 import "./database";
 const app = express();
@@ -37,4 +37,3 @@ app.get('/categoria', (req,res) => {
 })
 
 app.use('/api/noticia', noticiaRoutes);
-app.use('/api/actualidad', categoriaRoutes)

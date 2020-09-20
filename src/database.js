@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const url = "mongodb://localhost:27017/diario"; //cadena de conexion
+const url = "mongodb+srv://admin:admin1234@cluster0.wajr3.mongodb.net/<dbname>?retryWrites=true&w=majority"; //cadena de conexion
 
 mongoose.connect(url, {
     useNewUrlParser:true,
@@ -10,7 +10,6 @@ mongoose.connect(url, {
 });
 
 const connection = mongoose.connection;
-
 connection.once('open', () => {
     console.log("db conectada")
 })
