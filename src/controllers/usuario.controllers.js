@@ -1,15 +1,16 @@
 import jwt from 'jsonwebtoken';
 import Usuario from '../models/usuario';
+import bcryptjs from 'bcryptjs';
 
 
 const usuarioCtrl = {};
 
 
 usuarioCtrl.crearUsuario = async (req,res) => {
-    console.log(req,body);
+    console.log(req.body);
     try{
     const {nombreUsuario, apellidoUsuario, direccionUsuario, localidadUsuario, codigoPostal, telefonoUsuario, emailUsuario,
-        roleUsuario, contraseñaUsuario}
+        roleUsuario, contraseñaUsuario} = req.body;
 
         const usuarioNuevo = new Usuario({
             nombreUsuario,
@@ -20,22 +21,12 @@ usuarioCtrl.crearUsuario = async (req,res) => {
             telefonoUsuario,
             emailUsuario,
             roleUsuario,
-            contraseñaUsuario,
-            token
+            contraseñaUsuario
+            
         });
-
-        let mailExists = await Usuario.findOne({ email: body.email });
-        if (mailExists) {
-            console.log(mailExists)
-            return res.status(400).json({ mensaje: 'El mail ya se encuentra en uso' })
-        }
-        const Usuario = {
-            name: body.name,
-            email: body.email,
-            token: []
-        };
-        const salt = await bcryptjs.genSalt(10);
-        Usuario.password = await bcryptjs.hash(body.password, salt);
+       // console.log(req.body.contraseñaUsuario);
+       // const salt = await bcryptjs.genSalt(10);
+        //Usuario.password = await bcryptjs.hash(req.body.contraseñaUsuario, salt);
     
         await usuarioNuevo.save();
         res.status(201).json({
@@ -109,7 +100,7 @@ usuarioCtrl.crearUsuario = async (req,res) => {
     }
 
 
-    const auth = async(req, res, next) => {
+ /*   const auth = async(req, res, next) => {
         const token = req.header('Authorization').replace('Bearer ', '')                //obtenemos el token del request header y dado que el token viene en un formato de Bearer[space]token, reemplazamos Bearer [space] con vacio ('')
         const data = jwt.verify(token, process.env.JWT_KEY)                             //verificar si el token recibido es válido o fue creado usando nuestra JWT_KEY
         try {
@@ -124,7 +115,7 @@ usuarioCtrl.crearUsuario = async (req,res) => {
             res.status(401).send({ error: 'No está autorizado para acceder a este recurso' })
         }
     
-    }
+    }*/
 
 
 
@@ -208,4 +199,4 @@ module.exports = (role) => async (req, res, next) => {
 export default usuarioCtrl;
 
 
-export default auth;
+

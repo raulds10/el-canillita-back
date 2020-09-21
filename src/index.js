@@ -2,15 +2,15 @@ import express from 'express';
 import morgan from "morgan";
 import cors from 'cors';
 import path from 'path';
-import  usuario from './models/usuario';
-import categoriaRoutes from './routes/categoria.routes';
+import  usuario from './routes/usuarios.routes';
+import noticiaRoutes from './routes/noticia.routes';
 //import port from process.env.PORT
 
 import "./database";
 
-const PORT = 4005;
+const PORT = 4004;
 const app = express();
-app.set( PORT || 4005);
+app.set( PORT || 4004);
 
 app.listen(PORT, () => {
     console.log(path.join(__dirname, "../public"));
@@ -43,4 +43,4 @@ app.get('/categoria', (req,res) => {
 
 
 app.use('/api/usuario', usuario);
-app.use('/api/actualidad', categoriaRoutes); 
+app.use('/api/noticia', noticiaRoutes); 
