@@ -3,6 +3,7 @@ import morgan from "morgan";
 import cors from 'cors';
 import path from 'path';
 import  usuario from './models/usuario';
+import categoriaRoutes from './routes/categoria.routes';
 //import port from process.env.PORT
 
 import "./database";
@@ -41,17 +42,5 @@ app.get('/categoria', (req,res) => {
 
 
 
-/*app.post('/api/usuario/registro', (req,res) => {
-    const usuario = new Usuario(req.body)
-    usuario.save((err,doc) => {
-        if(err) return res.json({
-            success: false, err
-        })
-        res.status(200).json({
-            success: true,
-            userdata: doc
-        })
-    })
-})*/
-
-app.use('/api/diario', usuario);
+app.use('/api/usuario', usuario);
+app.use('/api/actualidad', categoriaRoutes); 
