@@ -1,5 +1,5 @@
 
-import express, { Router } from "express";
+import { Router } from "express";
 import usuarioCtrl from '../controllers/usuario.controllers';
 
 
