@@ -25,8 +25,8 @@ usuarioCtrl.crearUsuario = async (req,res) => {
             
         });
        // console.log(req.body.contraseñaUsuario);
-       // const salt = await bcryptjs.genSalt(10);
-        //Usuario.password = await bcryptjs.hash(req.body.contraseñaUsuario, salt);
+       const salt = await bcryptjs.genSalt(10);
+        Usuario.contraseñaUsuario = await bcryptjs.hash(req.body.contraseñaUsuario, salt);
     
         await usuarioNuevo.save();
         res.status(201).json({
@@ -85,7 +85,7 @@ usuarioCtrl.crearUsuario = async (req,res) => {
             user: {
                 id: usuarioLogueado._id,
                 email: usuarioLogueado.email,
-                roleType: usuarioLogueado.roleType
+                roleUsuario: usuarioLogueado.roleUsuario
             }
         }
         console.log(jwt_payload)
@@ -93,14 +93,14 @@ usuarioCtrl.crearUsuario = async (req,res) => {
             const token = jwt.sign(jwt_payload, process.env.JWT_SECRET, { expiresIn: process.env.TIME_EXP })
             usuarioLogueado.token = [token]
             await Usuario.update({ email: usuarioLogueado.email }, usuarioLogueado)
-            res.send({ mensaje: 'Logueado Correctamente', token, roleType: usuarioLogueado.roleType, id: usuarioLogueado._id })
+            res.send({ mensaje: 'Logueado Correctamente', token, roleUsuario: usuarioLogueado.roleUsuario, id: usuarioLogueado._id })
         } catch (error) {
             return res.status(500).json({ mensaje: 'ERROR', error })
         }
     }
 
 
- /*   const auth = async(req, res, next) => {
+    const auth = async(req, res, next) => {
         const token = req.header('Authorization').replace('Bearer ', '')                //obtenemos el token del request header y dado que el token viene en un formato de Bearer[space]token, reemplazamos Bearer [space] con vacio ('')
         const data = jwt.verify(token, process.env.JWT_KEY)                             //verificar si el token recibido es válido o fue creado usando nuestra JWT_KEY
         try {
@@ -115,7 +115,37 @@ usuarioCtrl.crearUsuario = async (req,res) => {
             res.status(401).send({ error: 'No está autorizado para acceder a este recurso' })
         }
     
+    }
+
+
+    
+
+
+
+
+  /*  module.exports = (role) => async (req, res, next) => {
+        try {
+            const token = req.header('Authorization').replace('Bearer ', '');
+            const verificar = jsonwebtoken.verify(token, process.env.JWT_SECRET);
+            const userLogin = await UsersModel.findOne({ _id: verificar.user.id, token: token });
+            if (!userLogin) {
+                return res.status(401).json({ mensaje: 'Dentro: No Autorizado' })
+            }
+            if (typeof role === 'string' && verificar.user.role !== role) {
+                return res.status(401).json({ mensaje: 'Dentro: No Autorizado' })
+            } else if (Array.isArray(role) && !role.includes(verificar.user.role)) {
+                return res.status(401).json({ mensaje: 'Dentro: No Autorizado' })
+            }
+            res.locals.user = userLogin;
+            res.locals.token = token;
+            next();
+        }
+        catch (error) {
+            return res.status(401).json({ mensaje: 'Fuera: No Autorizado', error: error.message })
+        }
     }*/
+
+ /*  
 
 
 
@@ -171,27 +201,7 @@ usuarioCtrl.post('/usuario/me/logoutall', auth, async(req, res) => {
 
 
 
-module.exports = (role) => async (req, res, next) => {
-    try {
-        const token = req.header('Authorization').replace('Bearer ', '');
-        const verificar = jsonwebtoken.verify(token, process.env.JWT_SECRET);
-        const userLogin = await UsersModel.findOne({ _id: verificar.user.id, token: token });
-        if (!userLogin) {
-            return res.status(401).json({ mensaje: 'Dentro: No Autorizado' })
-        }
-        if (typeof role === 'string' && verificar.user.role !== role) {
-            return res.status(401).json({ mensaje: 'Dentro: No Autorizado' })
-        } else if (Array.isArray(role) && !role.includes(verificar.user.role)) {
-            return res.status(401).json({ mensaje: 'Dentro: No Autorizado' })
-        }
-        res.locals.user = userLogin;
-        res.locals.token = token;
-        next();
-    }
-    catch (error) {
-        return res.status(401).json({ mensaje: 'Fuera: No Autorizado', error: error.message })
-    }
-}
+
 
 
 
